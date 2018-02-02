@@ -43,7 +43,7 @@ int uls_decrypt_file2file(const char * input, const char * output,
 
   //保存解密结果
   ByteArray result;
-  result.resize(block_size + 32);  //enough
+  result.resize(block_size + 1024 * 10);  //enough
   size_t  size = 0;
 
   //密钥填充
@@ -133,7 +133,7 @@ int uls_decrypt_file2mem(const char * input, char * outputBuf, int * outputLen,
     return -1;
   }
 
-  if(*outputLen < (file_len + 32) ) {
+  if(*outputLen < (file_len + 1024) ) {
     std::cout<<"please malloc enough memory"<<std::endl;
     return -1;
   }

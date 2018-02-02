@@ -38,7 +38,7 @@ int uls_encrypt_file2file(const char * input, const char * output,
 
     ByteArray key_array, enc;
     ByteArray result;
-    result.resize(blockSize + 32);  //enough
+    result.resize(blockSize + 1024);  //enough
     int64_t size = 0;
 
     for(int i = 0; i< keyLength; i++) {
