@@ -1,6 +1,7 @@
 #include "uls_file_split.h"
 #include <fstream>
 #include <cstring>
+#include <iostream>
 
 namespace uls {
   void Split::setInputFile(const char * input) {
@@ -10,7 +11,7 @@ namespace uls {
   int Split::doSplit(int *len, int64_t fileLen[]) {
 
     //读取文件个数
-    std::ifstream ifs(input_file_.c_str(), std::ifstream::ate | std::ifstream::binary);
+    std::ifstream ifs(input_file_.c_str(),  std::ifstream::binary);
 
     int8_t count = 0;
     ifs.read((char *)&count, sizeof(count));

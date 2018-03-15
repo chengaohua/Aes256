@@ -1,8 +1,6 @@
-project(AES256)
+project(encrypt&&merge)
 
 cmake_minimum_required(VERSION 2.6)
-
-enable_testing()
 
 set(compiler_common_flags "-ggdb -Wall -Wsign-compare -Wformat-security -Wpointer-arith")
 set(compiler_common_flags "${compiler_common_flags} -fPIC -fdiagnostics-show-option")
@@ -15,6 +13,4 @@ include_directories(src)
 
 add_subdirectory(src)
 
-add_subdirectory(utils)
-
-add_subdirectory(tests)
+add_subdirectory(samples)

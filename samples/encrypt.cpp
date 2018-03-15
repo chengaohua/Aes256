@@ -1,5 +1,5 @@
 /*
- * decrypt.cpp
+ * encrypt.cpp
  *
  * Copyright (c) 2014, Danilo Treffiletti <urban82@gmail.com>
  * All rights reserved.
@@ -22,29 +22,35 @@
  */
 
 #include <stdio.h>
-#include "uls_decrypt.h"
+#include "uls_encrypt.h"
 #include <stdlib.h>
 #include <time.h>
+#include<string.h>
 
 #include "aes256.hpp"
 
-//#define BUFFER_SIZE 1024*1024
-//
-//#ifdef __APPLE__
-//#  define fseeko64 fseeko
-//#endif
+/*#define BUFFER_SIZE 1024*1024
+
+#ifdef __APPLE__
+#  define fseeko64 fseeko
+#endif*/
 
 int main(int argc, char **argv)
 {
-//    ByteArray key, dec;
+//    ByteArray key, enc;
 //    size_t file_len;
 //
+//    ByteArray result;
+//    size_t index = 0;
+//    result.resize(1024 * 1024);
+//    printf("result size = %zd\n", result.size());
+//
 //    FILE *input, *output;
-
-  //  srand(time(0));
+//
+//    srand(time(0));
 
     if (argc != 4) {
-        fprintf(stderr, "Missing arguments\n");
+        fprintf(stderr, "Missing argument\n");
         fprintf(stderr, "Usage: %s <key> <input file> <output file>\n", argv[0]);
         return 1;
     }
@@ -54,8 +60,9 @@ int main(int argc, char **argv)
     while(argv[1][key_len] != 0)
         key.push_back(argv[1][key_len++]);
 
+    uls_encrypt_file2file(argv[2], argv[3], key.data(),key.size(), -1);
 
-    uls_decrypt_file2file(argv[2], argv[3], key.data(), key.size());
+
 
 
 //    size_t key_len = 0;
@@ -81,7 +88,12 @@ int main(int argc, char **argv)
 //    fseeko64(input, 0, SEEK_SET);
 //    printf("File is %zd bytes\n", file_len);
 //
-//    aes.decrypt_start(file_len);
+//    enc.clear();
+//    aes.encrypt_start(file_len, enc);
+//    fwrite(enc.data(), enc.size(), 1, output);
+//    memcpy(result.data(), enc.data(), enc.size());
+//    index += enc.size();
+//    printf("index = %zd ,size = %zd", index, enc.size());
 //
 //    while (!feof(input)) {
 //        unsigned char buffer[BUFFER_SIZE];
@@ -90,17 +102,21 @@ int main(int argc, char **argv)
 //        buffer_len = fread(buffer, 1, BUFFER_SIZE, input);
 //        printf("Read %zd bytes\n", buffer_len);
 //        if (buffer_len > 0) {
-//            dec.clear();
-//            aes.decrypt_continue(buffer, buffer_len, dec);
-//            fwrite(dec.data(), dec.size(), 1, output);
-//            printf("%zd decrypt_continue\n", dec.size());
+//            enc.clear();
+//            aes.encrypt_continue(buffer, buffer_len, enc);
+//            fwrite(enc.data(), enc.size(), 1, output);
+//            memcpy(result.data() + index, enc.data(), enc.size());
+//            index += enc.size();
+//            printf("%zd\n index = %zd", enc.size(), index);
 //        }
 //    }
 //
-//    dec.clear();
-//    aes.decrypt_end(dec);
-//    fwrite(dec.data(), dec.size(), 1, output);
-//    printf("%zd decrypt_continue\n", dec.size());
+//    enc.clear();
+//    aes.encrypt_end(enc);
+//    fwrite(enc.data(), enc.size(), 1, output);
+//    index += enc.size();
+//    printf("%zd\n", enc.size());
+//    printf("result size = %zd index = %zd \n", result.size(), index);
 //
 //    fclose(input);
 //    fclose(output);
